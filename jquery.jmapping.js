@@ -60,9 +60,10 @@
 
         map = new GMap2(map_elm);
 
-        map.centerAndZoomOnBounds = function(bounds) {
-          this.setCenter(bounds.getCenter(), this.getBoundsZoomLevel(bounds));
-        };
+        if(!map.centerAndZoomOnBounds) // written as mock in testing
+          map.centerAndZoomOnBounds = function(bounds) {
+            this.setCenter(bounds.getCenter(), this.getBoundsZoomLevel(bounds));
+          };
 
         if ($.isFunction(settings.map_config)){
           settings.map_config(map);
