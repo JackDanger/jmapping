@@ -6,12 +6,6 @@
  *
  */
 
-if (GMap2){
-  GMap2.prototype.centerAndZoomOnBounds = function(bounds) {
-    this.setCenter(bounds.getCenter(), this.getBoundsZoomLevel(bounds));
-  };
-}
-
 (function($){
   $.jMapping = function(map_elm, options){
     var settings, gmarkers, mapped, map, markerManager, places, bounds, jMapper;
@@ -63,13 +57,20 @@ if (GMap2){
       };
       
       var createMap = function(){
+
         map = new GMap2(map_elm);
+
+        map.centerAndZoomOnBounds = function(bounds) {
+          this.setCenter(bounds.getCenter(), this.getBoundsZoomLevel(bounds));
+        };
+
         if ($.isFunction(settings.map_config)){
           settings.map_config(map);
         } else {
           map.setMapType(G_NORMAL_MAP);
           map.addControl(new GSmallMapControl());
         }
+
         map.centerAndZoomOnBounds(bounds);
         return map;
       };
